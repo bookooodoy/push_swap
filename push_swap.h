@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:53:17 by nraymond          #+#    #+#             */
-/*   Updated: 2024/01/31 12:18:23 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:39:11 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,4 @@ typedef struct DoublyLinkedList
 
 t_dbl	*get_ldlist(int **tab);
 int	lst_add_last(t_dlist **tail, int val);
-void	swap_a(t_dbl **list);
+void	swap_a_b(t_dbl **list);

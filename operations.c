@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:17:46 by nraymond          #+#    #+#             */
-/*   Updated: 2024/01/31 12:29:39 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:23:04 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,23 @@ int	lst_add_last(t_dlist **tail, int val)
 	return (1);
 }
 
-void	swap_a(t_dbl **list)
+int	lst_add_first(t_dlist **head, int val)
+{
+	t_dlist	*first;
+	t_dlist	*new;
+
+	new = malloc(sizeof(t_dlist));
+	if (!new)
+		return (0);
+	new->val = val;
+	first = (*head)->next;
+	new->next = first;
+	new->prev = (*head);
+	(*head)->next = new;
+	return (1);
+}
+
+void	swap_a_b(t_dbl **list)
 {
 	// check if the next of head is tail
 	t_dlist	*a;
@@ -88,4 +104,29 @@ void	swap_a(t_dbl **list)
 	next->prev = a;
 	prev->next = b;
 
+}
+
+void	swap_ss(t_dbl **list1, t_dbl **list2)
+{
+	swap_a_b(list1);
+	swap_a_b(list2);
+}
+
+
+void	push_a(t_dbl **list1, t_dbl **list2)
+{
+	t_dlist	*next;
+	t_dlist	*swap;
+
+	if (!((*list2)->head) || !(((*list2)->head)->next))
+		return ;
+	// add last and change the value of the first one
+	// swap element
+	lst_add_first(&((*list1)->head), (((*list2)->head)->next)->val);
+	// free the node in list2
+	next = (((*list2)->head)->next)->next;
+	next->prev = ((*list2)->head);
+	((*list2)->head)->next = prev;
+	free(((*list2)->head)->next);
+	next->prev = ((*list2)->head);
 }
