@@ -1,7 +1,6 @@
 SRCS=src/main.c\
      src/utils.c\
      src/operations.c\
-     src/sort.c
 
 INC=inc/headers/push_swap.h\
     inc/my-libft/inc/libft.h

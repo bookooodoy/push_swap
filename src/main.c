@@ -24,7 +24,7 @@ int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 	int	val;
 
 	i = 1;
-	stack_a->size = 0;
+	(*stack_a)->size = 0;
 	while (i < argc)
 	{
 		k = i + 1;
@@ -32,7 +32,7 @@ int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 		if (val == 0 && argv[i][0] != '0')
 			return (0);
 		insert_node(stack_a, val);
-		stack_a->size += 1;
+		(*stack_a)->size += 1;
 		while (k < argc)
 		{
 			if (ft_atoi(argv[k]) == 0 && argv[k][0] != 0)
@@ -65,7 +65,8 @@ int	main(int argc, char **argv)
 		printf("Init a and b:\n");
 		print_stacks(stack_a, stack_b);
 
-		push_rand_values(&stack_a, &stack_b);
+		push_a(&stack_a, &stack_b);
+		push_a(&stack_a, &stack_b);
 		print_stacks(stack_a, stack_b);
 
 		free_stack(&stack_a);

@@ -3,17 +3,15 @@
 void	insert_node(t_stack **stack, int value)
 {
 	t_elem	*new_node;
-	t_elem	*prev;
 
 	new_node = malloc(sizeof(t_elem));
 	if (!new_node)
 		return ; // TODO: protect malloc
-	prev = ((*stack)->head)->prev;
-	((*stack)->head)->prev->next = new_node;
 	new_node->val = value;
 	new_node->next = (*stack)->head;
-	new_node->prev = prev;
-
+	new_node->prev = (*stack)->head->prev;
+	
+	((*stack)->head)->prev->next = new_node;
 	((*stack)->head)->prev = new_node;
 }
 
@@ -95,7 +93,7 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 		return ;
 	insert_node(stack_b, pop->val);
 	free(pop);
-	stack_a->size -= 1;
+	(*stack_a)->size -= 1;
 	printf("pa\n");
 }
 
@@ -108,7 +106,7 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 		return ;
 	insert_node(stack_a, pop->val);
 	free(pop);
-	stack_b->size -= 1;
+	(*stack_b)->size -= 1;
 	printf("pb\n");
 }
 
