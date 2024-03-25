@@ -1,24 +1,37 @@
-SRCS=operations.c\
-    
-INCL=push_swap.h
+SRCS=src/main.c\
+     src/utils.c\
+     src/operations.c
 
-MAIN=main.c
+INC=inc/headers/push_swap.h\
+    inc/my-libft/inc/libft.h
 
-NAME=push_swap
+INCPATH=inc/my-libft/
+
+LIBFT=$(INCPATH)libft.a
 
 CC=cc
 
-CFLAGS=-Wall -Wextra -Werror -I .
+CFLAGS=-Werror -Wall -Wextra
 
-LIBFT=my-libft/
+NAME=push_swap
 
-all: $(LIBFT) $(NAME)
+all: Makefile $(SRCS)
+	$(CC) $(SRCS) -g3 -o $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT)
+$(NAME): $(LIBFT) $(INCL) Makefile $(SRCS)
+	$(CC) $(SRCS) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
 
-$(MAME): $(main)
+$(LIBFT): $(INCL) Makefile
+	$(MAKE) -C $(INCPATH)
 
-$(name):
-	$(CC) $(CFLAGS) -o $(NAME)
+clean:
+	$(MAKE) clean -C $(INCPATH)
+	$(MAKE) clean -C $(MLX)
 
+fclean: clean
+	$(MAKE) fclean -C $(INCPATH)
+	$(RM) -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all fclean clean re
