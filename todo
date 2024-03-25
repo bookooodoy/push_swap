@@ -3,7 +3,7 @@
 	Check that there is no duplicate number X
 	Check that integers are within integer range X
 	
-- Finish operations coding operations on the stacks
+- Finish operations coding operations on the stacks X
 	Structure for push_swap (stack) X
 	sa (swap a): Swap the first 2 elements at the top of stack a. X
 	Do nothing if there is only one or no elements.
@@ -33,6 +33,8 @@
 	- Swap X
 
 - Fix tail and next() pointers (bad assignation) X
+- Correctly import libft
+- Optimize functions
+- Fix leaks
 
 - Implement push_swap turk algorithm logic
-

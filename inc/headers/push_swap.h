@@ -17,6 +17,7 @@ typedef struct s_stack
 {
 	t_elem *head;
 	t_elem *tail;
+	int	size;
 }				t_stack;
 
 //main
@@ -38,6 +39,9 @@ void	rotate_up(t_stack **stack, int s);
 void	rotate_down(t_stack **stack, int s);
 void	rr(t_stack **stack_a, t_stack **stack_b);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
+
+// solving
+void	push_rand_values(t_stack **a, t_stack **b);
 
 // temporary util
 int	ft_atoi(const char *nptr);

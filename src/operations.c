@@ -95,6 +95,7 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 		return ;
 	insert_node(stack_b, pop->val);
 	free(pop);
+	stack_a->size -= 1;
 	printf("pa\n");
 }
 
@@ -107,6 +108,7 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 		return ;
 	insert_node(stack_a, pop->val);
 	free(pop);
+	stack_b->size -= 1;
 	printf("pb\n");
 }
 
