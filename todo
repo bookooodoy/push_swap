@@ -38,3 +38,32 @@
 - Fix leaks
 
 - Implement push_swap turk algorithm logic
+
+//TURK ALGORITHM LOGIC
+1) Find the cheapest number
+	- Cheapest number algorithm:
+	 If the number we look is smallest or biggest (small & big fnc)
+		That means we shift the largest number in stack_b on top:
+		 Take median of stack_b
+		 Take median of stack_a
+		 If the numbers we want to shift are in the same median
+		   Rotate b and until target is at the top (count)
+		   Count to rotate or shift until number is at top
+		   Count the push
+		 If they are not in the same median
+		   Count (in stack_b) if shifting (up/down) changes median in stack_a
+		   If it does, rotate both until smallest/biggest is at top of stack b
+		   If it doesn't, rotate stack_b until the number is at the top
+		   Then rotate stack_a
+		   Push
+	 If the number is not smallest or biggest
+		Find it's ideal position (above it's closest lower)
+		  
+	        Repeat the logic above
+	RETURN THE COUNT; WHILE LOOP UNLESS COUNT == 1
+2) Apply logic above to swap until stack_a size is 3
+3) Sort stack_a (very simple cases)
+4) Push back to A
+5) Sort trailing number in A
+
+
