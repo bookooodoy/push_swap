@@ -3,16 +3,19 @@
 void	insert_node(t_stack **stack, int value)
 {
 	t_elem	*new_node;
+	t_elem	*prev;
 
 	new_node = malloc(sizeof(t_elem));
 	if (!new_node)
 		return ; // TODO: protect malloc
+	prev = (*stack)->head->prev;
 	new_node->val = value;
 	new_node->next = (*stack)->head;
-	new_node->prev = (*stack)->head->prev;
+	new_node->prev = prev;
 	
-	((*stack)->head)->prev->next = new_node;
+	prev->next = new_node;
 	((*stack)->head)->prev = new_node;
+	printf("prev = %d\n", prev->val);
 }
 
 t_stack	*init_stack(void)
@@ -42,14 +45,13 @@ t_stack	*init_stack(void)
 
 t_elem	*pop_node(t_stack **stack)
 {
+	t_elem	*pop;
 	t_elem	*prev;
 
-	prev = ((*stack)->head)->prev;
-	if (prev == (*stack)->tail)
+	pop = ((*stack)->head)->prev;
+	if (!pop || pop == (*stack)->tail)
 		return (NULL);
-	(prev->prev)->next = (*stack)->head;
-	((*stack)->head)->prev = prev->prev;
-	return (prev);
+	return (pop);
 }
 
 void	swap_nodes(t_stack **stack)
@@ -58,7 +60,7 @@ void	swap_nodes(t_stack **stack)
 	int	temp_val;
 
 	prev = ((*stack)->head)->prev;
-	if ((prev == (*stack)->tail) || prev->prev == (*stack)->tail)
+	if (!prev || (prev == (*stack)->tail) || prev->prev == (*stack)->tail)
 		return ;
 	temp_val = prev->prev->val;
 	prev->prev->val = prev->val;
@@ -87,10 +89,14 @@ void	swap_ss(t_stack **stack_a, t_stack **stack_b)
 void	push_a(t_stack **stack_a, t_stack **stack_b)
 {
 	t_elem	*pop;
+	t_elem	*prev;
 
 	pop = pop_node(stack_a);
 	if (!pop)
 		return ;
+	prev = (*stack_a)->head->prev->prev;
+	(*stack_a)->head->prev = prev;
+	prev->next = (*stack_a)->head;
 	insert_node(stack_b, pop->val);
 	free(pop);
 	(*stack_a)->size -= 1;
@@ -167,7 +173,7 @@ void	print_stacks(t_stack *a, t_stack *b)
 	t_elem	*c_b = b->head->prev;
 
 	printf("\n");
-	while ((c_a != a->tail) || (c_b != b->tail))
+	while ((c_a != NULL && c_a != a->tail) || (c_b != NULL && c_b != b->tail))
 	{
 		if (c_a != a->tail)
 		{

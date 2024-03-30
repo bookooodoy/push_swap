@@ -66,9 +66,10 @@ int	main(int argc, char **argv)
 		print_stacks(stack_a, stack_b);
 
 		push_a(&stack_a, &stack_b);
+		print_stacks(stack_a, stack_b);
 		push_a(&stack_a, &stack_b);
 		print_stacks(stack_a, stack_b);
-
+		print_stacks(stack_b, stack_a);
 		free_stack(&stack_a);
 		free_stack(&stack_b);
 		return (0);
