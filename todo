@@ -1,45 +1,14 @@
-- Finish parsing errors checking
-	Check that numbers exist X
-	Check that there is no duplicate number X
-	Check that integers are within integer range X
-	
-- Finish operations coding operations on the stacks X
-	Structure for push_swap (stack) X
-	sa (swap a): Swap the first 2 elements at the top of stack a. X
-	Do nothing if there is only one or no elements.
-	sb (swap b): Swap the first 2 elements at the top of stack b. X
-	Do nothing if there is only one or no elements.
-	ss : sa and sb at the same time. X
-	pa (push a): Take the first element at the top of b and put it at the top of a.
-	Do nothing if b is empty. X
-	pb (push b): Take the first element at the top of a and put it at the top of b.
-	Do nothing if a is empty. X
-	ra (rotate a): Shift up all elements of stack a by 1. X
-	The first element becomes the last one.
-	rb (rotate b): Shift up all elements of stack b by 1. X
-	The first element becomes the last one.
-	rr : ra and rb at the same time. X
-	rra (reverse rotate a): Shift down all elements of stack a by 1. X
-	The last element becomes the first one.
-	rrb (reverse rotate b): Shift down all elements of stack b by 1. X
-	The last element becomes the first one.
-	rrr : rra and rrb at the same time X
-
-
-// OPERATIONS
-	- Initialize X
-	- Pop X
-	- Insert X
-	- Swap X
+End;
 
 - Fix tail and next() pointers (bad assignation) X
+- MAKE IT COMPILE WITH FLAGS IMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!AZEAZE AZEAZ E
 - Correctly import libft
 - Optimize functions
 - Fix leaks
 
 - Implement push_swap turk algorithm logic
 
-//TURK ALGORITHM LOGIC
+//MECHANIC TURK ALGORITHM LOGIC
 1) Find the cheapest number
 	- Cheapest number algorithm:
 	 If the number we look is smallest or biggest (small & big fnc)

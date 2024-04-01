@@ -15,7 +15,8 @@ void	insert_node(t_stack **stack, int value)
 	
 	prev->next = new_node;
 	((*stack)->head)->prev = new_node;
-	printf("prev = %d\n", prev->val);
+	(*stack)->size += 1;
+	update_median(stack);
 }
 
 t_stack	*init_stack(void)
@@ -41,6 +42,7 @@ t_stack	*init_stack(void)
 	tail->next = head;
 	stack->head = head;
 	stack->tail = tail;
+	stack->size = 0;
 }
 
 t_elem	*pop_node(t_stack **stack)
@@ -100,19 +102,25 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 	insert_node(stack_b, pop->val);
 	free(pop);
 	(*stack_a)->size -= 1;
+	update_median(stack_a);
 	printf("pa\n");
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b)
 {
 	t_elem	*pop;
+	t_elem	*prev;
 
 	pop = pop_node(stack_b);
 	if (!pop)
 		return ;
+	prev = (*stack_b)->head->prev->prev;
+	(*stack_b)->head->prev = prev;
+	prev->next = (*stack_b)->head;
 	insert_node(stack_a, pop->val);
 	free(pop);
 	(*stack_b)->size -= 1;
+	update_median(stack_b);
 	printf("pb\n");
 }
 
@@ -180,11 +188,15 @@ void	print_stacks(t_stack *a, t_stack *b)
 			printf("%3d", c_a->val);
 			c_a = c_a->prev;
 		}
+		else
+			printf("  .");
 		if (c_b != b->tail)
 		{
 			printf("%3d", c_b->val);
 			c_b = c_b->prev;
 		}
+		else
+			printf("  .");
 		printf("\n");
 		
 	}

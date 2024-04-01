@@ -53,3 +53,10 @@ void	free_stack(t_stack **stack)
 	}
 	free(*stack);
 }
+
+void	update_median(t_stack **s)
+{
+	if (!*s)
+		return ;
+	(*s)->median = (*s)->size / 2;
+}

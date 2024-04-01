@@ -18,6 +18,7 @@ typedef struct s_stack
 	t_elem *head;
 	t_elem *tail;
 	int	size;
+	int	median;
 }				t_stack;
 
 //main
@@ -41,10 +42,20 @@ void	rr(t_stack **stack_a, t_stack **stack_b);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
 
 // solving
-void	push_rand_values(t_stack **a, t_stack **b);
+t_elem	*get_biggest_node(t_stack *s);
+t_elem	*get_smallest_node(t_stack *s);
+t_elem	*get_closest_node(t_elem *node, t_stack *s);
+t_elem	*find_ideal_position(t_elem *node, t_stack *b);
+int	get_node_index(t_elem *target, t_stack *s);
+int	get_different_count_median(t_stack *a, t_stack *b, int ia, int ib);
+int	get_operation_count(t_stack *a, t_stack *b, int ia, int ib);
+int	get_number_operations(t_elem *node, t_stack *a, t_stack *b);
+t_elem	*find_cheapest_node(t_stack *a, t_stack *b);
+void	push_swap(t_stack **a, t_stack **b);
 
 // temporary util
 int	ft_atoi(const char *nptr);
 void	print_stacks(t_stack *a, t_stack *b);
+void	update_median(t_stack **s);
 
 #endif
