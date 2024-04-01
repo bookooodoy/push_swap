@@ -60,6 +60,30 @@ t_elem	*get_closest_node(t_elem *node, t_stack *s)
 	return (closest);
 }
 
+t_elem	*get_closest_node_big(t_elem *node, t_stack *s)
+{
+	int	diff;
+	t_elem	*closest;
+	t_elem	*cur;
+
+	cur = s->head->prev;
+	if (!cur || cur == s->tail)
+		return (NULL);
+	diff = 0;
+	while (cur != s->tail && cur->val < node->val)
+		cur = cur->prev;
+	closest = cur;
+	while (cur != s->tail)
+	{
+		if (cur->val > node->val)
+			diff = cur->val - node->val;
+		if (diff < closest->val - node->val)
+			closest = cur;
+		cur = cur->prev;
+	}
+	return (closest);
+}
+
 t_elem	*find_ideal_position(t_elem *node, t_stack *b)
 {
 	// returns the node that is to be shifted to the top of stack b
@@ -216,6 +240,19 @@ void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b)
 	}
 }
 
+void	sort_three(t_stack *s)
+{
+	if (s->size > 2)
+	{
+		if ((s->head->prev->prev)->val > (s->tail->next)->val && (s->head->prev->prev)->val > (s->head->prev)->val)
+			rotate_down(&s, 1);
+		else if ((s->head->prev)->val > (s->head->prev->prev)->val && (s->head->prev)->val > (s->tail->next)->val)
+			rotate_up(&s, 1);
+	}
+	if ((s->head->prev)->val > (s->head->prev->prev)->val)
+		swap_a(&s);
+}
+
 void	push_swap(t_stack **a, t_stack **b)
 {
 	t_elem	*cheapest;
@@ -232,8 +269,16 @@ void	push_swap(t_stack **a, t_stack **b)
 		push_a(a, b);
 		print_stacks(*a, *b);
 	}
-	// sort a when a == 3
-	// sort b 
-	// push everything in b back to a
+	// sort a
+	sort_three(*a);
+	print_stacks(*a, *b);
+	while ((*b)->head->prev != (*b)->tail)
+	{
+		cheapest = (*b)->head->prev;
+		ideal = get_closest_node_big(cheapest, *a);
+		put_to_top(ideal, cheapest, *a, *b);
+		push_b(a, b);
+		print_stacks(*a, *b);
+	}
 	// sort trailing integer in a (special cases)
 }

@@ -9,7 +9,7 @@ End;
 - Implement push_swap turk algorithm logic
 
 //MECHANIC TURK ALGORITHM LOGIC
-1) Find the cheapest number
+1) Find the cheapest number X
 	- Cheapest number algorithm:
 	 If the number we look is smallest or biggest (small & big fnc)
 		That means we shift the largest number in stack_b on top:
@@ -30,9 +30,15 @@ End;
 		  
 	        Repeat the logic above
 	RETURN THE COUNT; WHILE LOOP UNLESS COUNT == 1
-2) Apply logic above to swap until stack_a size is 3
-3) Sort stack_a (very simple cases)
-4) Push back to A
-5) Sort trailing number in A
+2) Apply logic above to swap until stack_a size is 3 X
+3) Sort stack_a (very simple cases) X
+4) Push back to A X
 
 
+LAST TO FINISH
+- Sort trailing last integer (sort A in case we are not pushing the smallest integer in last push)
+- Make it compile with flags
+- Correctly import libft && replace illegal functions with libft functions
+- Optimize function efficiency
+- Fix potential leaks & protect mallocs
+- Norminette everything
