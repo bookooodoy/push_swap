@@ -39,48 +39,65 @@ t_elem	*get_smallest_node(t_stack *s)
 t_elem	*get_closest_node(t_elem *node, t_stack *s)
 {
 	int	diff;
+	int	diff_min;
 	t_elem	*closest;
 	t_elem	*cur;
 
 	cur = s->head->prev;
 	if (!cur || cur == s->tail)
 		return (NULL);
-	diff = 0;
-	while (cur != s->tail && cur->val > node->val)
-		cur = cur->prev;
 	closest = cur;
+	diff_min = 0;
 	while (cur != s->tail)
 	{
-		if (cur->val < node->val)
-			diff = node->val - cur->val;
-		if (diff < node->val - closest->val)
-			closest = cur;
+		diff = node->val - cur->val;
+		if (diff > 0)
+		{
+			if (!diff_min || (diff_min && diff < diff_min))
+			{
+				closest = cur;
+				diff_min = diff;
+			}
+		}
+		else if (diff < 0 && !diff_min)
+			if (diff > node->val - closest->val)
+				closest = cur;
+		printf("Number checked = %d, Comparing to %d, diff %d, diff_min = %d\n", cur->val, node->val, diff, diff_min);
 		cur = cur->prev;
 	}
+	printf("sml closest to %d = %d\n", node->val, closest->val);
 	return (closest);
 }
 
 t_elem	*get_closest_node_big(t_elem *node, t_stack *s)
 {
 	int	diff;
+	int	diff_min;
 	t_elem	*closest;
 	t_elem	*cur;
 
 	cur = s->head->prev;
 	if (!cur || cur == s->tail)
 		return (NULL);
-	diff = 0;
-	while (cur != s->tail && cur->val < node->val)
-		cur = cur->prev;
 	closest = cur;
+	diff_min = 0;
 	while (cur != s->tail)
 	{
-		if (cur->val > node->val)
-			diff = cur->val - node->val;
-		if (diff < closest->val - node->val)
-			closest = cur;
+		diff = cur->val - node->val;
+		if (diff > 0)
+		{
+			if (!diff_min || (diff_min && diff < diff_min))
+			{
+				closest = cur;
+				diff_min = closest->val - node->val;
+			}
+		}
+		else if (diff < 0 && !diff_min)
+			if (diff > closest->val - node->val)
+				closest = cur;
 		cur = cur->prev;
 	}
+	printf("abv closest to %d = %d\n", node->val, closest->val);
 	return (closest);
 }
 
@@ -257,6 +274,12 @@ void	push_swap(t_stack **a, t_stack **b)
 {
 	t_elem	*cheapest;
 	t_elem	*ideal;
+
+	if ((*a)->size <= 3)
+	{
+		sort_three(*a);
+		return ;
+	}
 	push_a(a, b);
 	push_a(a, b);
 
@@ -276,9 +299,33 @@ void	push_swap(t_stack **a, t_stack **b)
 	{
 		cheapest = (*b)->head->prev;
 		ideal = get_closest_node_big(cheapest, *a);
-		put_to_top(ideal, cheapest, *a, *b);
-		push_b(a, b);
+		if (get_biggest_node(*a)->val < cheapest->val)
+		{
+			push_b(a, b);
+			rotate_up(a, 1);
+		}
+		else
+		{
+			put_to_top(ideal, cheapest, *a, *b);
+			push_b(a, b);
+		}
 		print_stacks(*a, *b);
 	}
-	// sort trailing integer in a (special cases)
+	t_elem	*min;
+	int	is_half;
+	int	val;
+
+	min = get_smallest_node(*a);
+	printf("Smallest node = %d\n", min->val);
+	is_half = get_node_index(min, *a) < (*a)->median;
+	val = min->val;
+	while ((*a)->head->prev->val != val)
+	{
+		if (is_half)
+			rotate_up(a, 1);
+		else
+			rotate_down(a, 1);
+		print_stacks(*a, *b);
+		printf("Prev = %d\n", (*a)->head->prev->val);
+	}
 }
