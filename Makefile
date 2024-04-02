@@ -12,22 +12,20 @@ LIBFT=$(INCPATH)libft.a
 
 CC=cc
 
-CFLAGS=-Werror -Wall -Wextra
+CFLAGS=-Werror -Wall -Wextra -g3
 
 NAME=push_swap
 
-all: Makefile $(SRCS)
-	$(CC) $(SRCS) -g3 -o $(NAME)
+all: $(NAME)
 
 $(NAME): $(LIBFT) $(INCL) Makefile $(SRCS)
-	$(CC) $(SRCS) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT)
 
 $(LIBFT): $(INCL) Makefile
 	$(MAKE) -C $(INCPATH)
 
 clean:
 	$(MAKE) clean -C $(INCPATH)
-	$(MAKE) clean -C $(MLX)
 
 fclean: clean
 	$(MAKE) fclean -C $(INCPATH)

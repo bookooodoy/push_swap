@@ -1,4 +1,5 @@
 #include "../inc/headers/push_swap.h"
+#include "../inc/my-libft/inc/libft.h"
 
 void	insert_node(t_stack **stack, int value)
 {
@@ -43,12 +44,12 @@ t_stack	*init_stack(void)
 	stack->head = head;
 	stack->tail = tail;
 	stack->size = 0;
+	return (stack);
 }
 
 t_elem	*pop_node(t_stack **stack)
 {
 	t_elem	*pop;
-	t_elem	*prev;
 
 	pop = ((*stack)->head)->prev;
 	if (!pop || pop == (*stack)->tail)
@@ -72,20 +73,20 @@ void	swap_nodes(t_stack **stack)
 void	swap_a(t_stack **stack_a)
 {
 	swap_nodes(stack_a);
-	printf("sa\n");
+	ft_printf("sa\n");
 }
 
 void	swap_b(t_stack **stack_b)
 {
 	swap_nodes(stack_b);
-	printf("sb\n");
+	ft_printf("sb\n");
 }
 
 void	swap_ss(t_stack **stack_a, t_stack **stack_b)
 {
 	swap_nodes(stack_a);
 	swap_nodes(stack_b);
-	printf("ss\n");
+	ft_printf("ss\n");
 }
 
 void	push_a(t_stack **stack_a, t_stack **stack_b)
@@ -103,7 +104,7 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 	free(pop);
 	(*stack_a)->size -= 1;
 	update_median(stack_a);
-	printf("pa\n");
+	ft_printf("pa\n");
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b)
@@ -121,7 +122,7 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 	free(pop);
 	(*stack_b)->size -= 1;
 	update_median(stack_b);
-	printf("pb\n");
+	ft_printf("pb\n");
 }
 
 void	rotate_up(t_stack **stack, int s)
@@ -138,9 +139,9 @@ void	rotate_up(t_stack **stack, int s)
 		cur = cur->prev;
 	}
 	if (s == 1)
-		printf("ra\n");
+		ft_printf("ra\n");
 	else if (!s)
-		printf("rb\n");
+		ft_printf("rb\n");
 }
 
 void	rotate_down(t_stack **stack, int s)
@@ -157,49 +158,49 @@ void	rotate_down(t_stack **stack, int s)
 		cur = cur->next;
 	}
 	if (s == 1)
-		printf("rra\n");
+		ft_printf("rra\n");
 	else if (!s)
-		printf("rrb\n");
+		ft_printf("rrb\n");
 }
 
 void	rr(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate_up(stack_a, -1);
 	rotate_up(stack_b, -1);
-	printf("rr\n");
+	ft_printf("rr\n");
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate_down(stack_a, -1);
 	rotate_down(stack_b, -1);
-	printf("rrr\n");
+	ft_printf("rrr\n");
 }
 void	print_stacks(t_stack *a, t_stack *b)
 {
 	t_elem	*c_a = a->head->prev;
 	t_elem	*c_b = b->head->prev;
 
-	printf("\n");
+	ft_printf("\n");
 	while ((c_a != NULL && c_a != a->tail) || (c_b != NULL && c_b != b->tail))
 	{
 		if (c_a != a->tail)
 		{
-			printf("%3d", c_a->val);
+			ft_printf("%3d", c_a->val);
 			c_a = c_a->prev;
 		}
 		else
-			printf("  .");
+			ft_printf("  .");
 		if (c_b != b->tail)
 		{
-			printf("%3d", c_b->val);
+			ft_printf("%3d", c_b->val);
 			c_b = c_b->prev;
 		}
 		else
-			printf("  .");
-		printf("\n");
+			ft_printf("  .");
+		ft_printf("\n");
 		
 	}
-	printf("  _  _\n");
-	printf("  a  b\n\n");
+	ft_printf("  _  _\n");
+	ft_printf("  a  b\n\n");
 }

@@ -1,4 +1,5 @@
 #include "../inc/headers/push_swap.h"
+#include "../inc/my-libft/inc/libft.h"
 
 t_elem	*get_biggest_node(t_stack *s)
 {
@@ -62,10 +63,8 @@ t_elem	*get_closest_node(t_elem *node, t_stack *s)
 		else if (diff < 0 && !diff_min)
 			if (diff > node->val - closest->val)
 				closest = cur;
-		printf("Number checked = %d, Comparing to %d, diff %d, diff_min = %d\n", cur->val, node->val, diff, diff_min);
 		cur = cur->prev;
 	}
-	printf("sml closest to %d = %d\n", node->val, closest->val);
 	return (closest);
 }
 
@@ -97,7 +96,6 @@ t_elem	*get_closest_node_big(t_elem *node, t_stack *s)
 				closest = cur;
 		cur = cur->prev;
 	}
-	printf("abv closest to %d = %d\n", node->val, closest->val);
 	return (closest);
 }
 
@@ -253,7 +251,6 @@ void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b)
 			rotate_up(&b, 0);
 		if (ib >= b->median && b->head->prev->val != vb)
 			rotate_down(&b, 0);
-		print_stacks(a, b);
 	}
 }
 
@@ -283,18 +280,15 @@ void	push_swap(t_stack **a, t_stack **b)
 	push_a(a, b);
 	push_a(a, b);
 
-	print_stacks(*a, *b);
 	while ((*a)->size > 3)
 	{
 		cheapest = find_cheapest_node(*a, *b);
 		ideal = find_ideal_position(cheapest, *b);
 		put_to_top(cheapest, ideal, *a, *b);
 		push_a(a, b);
-		print_stacks(*a, *b);
 	}
 	// sort a
 	sort_three(*a);
-	print_stacks(*a, *b);
 	while ((*b)->head->prev != (*b)->tail)
 	{
 		cheapest = (*b)->head->prev;
@@ -309,14 +303,12 @@ void	push_swap(t_stack **a, t_stack **b)
 			put_to_top(ideal, cheapest, *a, *b);
 			push_b(a, b);
 		}
-		print_stacks(*a, *b);
 	}
 	t_elem	*min;
 	int	is_half;
 	int	val;
 
 	min = get_smallest_node(*a);
-	printf("Smallest node = %d\n", min->val);
 	is_half = get_node_index(min, *a) < (*a)->median;
 	val = min->val;
 	while ((*a)->head->prev->val != val)
@@ -325,7 +317,5 @@ void	push_swap(t_stack **a, t_stack **b)
 			rotate_up(a, 1);
 		else
 			rotate_down(a, 1);
-		print_stacks(*a, *b);
-		printf("Prev = %d\n", (*a)->head->prev->val);
 	}
 }

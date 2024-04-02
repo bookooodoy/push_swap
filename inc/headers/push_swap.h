@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include "../my-libft/inc/libft.h"
 
 //STRUCTS
 typedef struct s_elem
