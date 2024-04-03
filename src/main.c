@@ -110,7 +110,7 @@ int	main(int argc, char **argv)
 		t_stack	*stack_b;
 
 
-		if (argc > 2 && !argv[1][0] && !argv[2][0])
+		if (argc >= 2 && (!argv[1][0] || !argv[2][0]))
 			return (ft_printf("Error\n"), 0);
 
 		stack_a = init_stack();
