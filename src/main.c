@@ -7,23 +7,23 @@ int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 	int	k;
 	int	val;
 
-	i = 1;
-	while (i < argc)
+	i = argc - 1;
+	while (i)
 	{
-		k = i + 1;
+		k = i - 1;
 		val = ft_atoi(argv[i]);
 		if (val == 0 && argv[i][0] != '0')
 			return (ft_printf("\nFaulty argv = %s", argv[i]), 0);
 		insert_node(stack_a, val);
-		while (k < argc)
+		while (k)
 		{
 			if (ft_atoi(argv[k]) == 0 && argv[k][0] != '0')
 				return (0);
 			if (val == ft_atoi(argv[k]))
 				return (0);
-			k++;
+			k--;
 		}
-		i++;
+		i--;
 	}
 	return (1);
 }
@@ -68,7 +68,7 @@ int	check_dup(char **arg)
 		}
 		i++;
 	}
-	return (1);
+	return (i);
 }
 
 
@@ -88,18 +88,44 @@ int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
 		}
 		i = 0;
 		split = ft_split(argv[1], ' ');
-		if (!check_dup(split))
+		i = check_dup(split);
+		if (!i)
 			return (free_stacks(a, b, &split, 0));
-		while (split[i])
+		while (i)
 		{
-			val = ft_atoi(split[i]);
+			val = ft_atoi(split[--i]);
 			if (!val && split[i][0] != '0')
 				return (free_stacks(a, b, &split, 0));
 			insert_node(a, val); 
-			i++;
 		}
 	}
 	return (free_stacks(a, b, &split, 1));
+}
+
+void	update_buff(char **buf, char *new_line)
+{
+        char    *nl;
+
+        nl = ft_strjoin(*buf, new_line);
+        free(*buf);
+        *buf = nl;
+}
+
+char    *read_instructions(void)
+{
+        char    *l;
+        char    *buf;
+
+        l = get_next_line(0);
+        while (l)
+        {
+                update_buff(&buf, l);
+                free(l);
+                l = get_next_line(0);
+        }
+        free(l);
+        ft_printf("%s", buf);
+        return (buf);
 }
 
 int	main(int argc, char **argv)
@@ -109,13 +135,10 @@ int	main(int argc, char **argv)
 		t_stack	*stack_a;
 		t_stack	*stack_b;
 
-
 		if ((argc > 2 && (!argv[1][0] || !argv[2][0])) || (argc == 2 && !argv[1][0]))
 			return (ft_printf("Error\n"), 0);
-
 		stack_a = init_stack();
 		stack_b = init_stack();
-
 		if (argc == 2)
 		{
 			if (!convert_split(argc, argv, &stack_a, &stack_b))
@@ -124,9 +147,9 @@ int	main(int argc, char **argv)
 		else if (!check_duplicates(&stack_a, argc, argv))
 			return (ft_printf("Error\n"), 0);
 		push_swap(&stack_a, &stack_b);
+
 		free_stack(&stack_b);
 		free_stack(&stack_a);
-		return (0);
 	}
 	return (0);
 }

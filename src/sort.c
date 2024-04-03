@@ -239,18 +239,27 @@ void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b)
 
 	while (a->head->prev->val != va || b->head->prev->val != vb)
 	{
-		if (check_difference(ia, ib, a, b) == 1 && a->head->prev != target_a && b->head->prev != target_b)
+		if (check_difference(ia, ib, a, b) == 1 && (a->head->prev->val != va && b->head->prev->val != vb))
 			rr(&a, &b);
-		else if (check_difference(ia, ib, a, b) == 2 && a->head->prev != target_a && b->head->prev != target_b)
+		else if (check_difference(ia, ib, a, b) == 2 && (a->head->prev->val != va && b->head->prev->val != vb))
 			rrr(&a, &b);
-		else if (ia < a->median && a->head->prev->val != va)
-			rotate_up(&a, 1);
-		else if (ia >= a->median && a->head->prev->val != va)
-			rotate_down(&a, 1);
-		if (ib < b->median && b->head->prev->val != vb)
-			rotate_up(&b, 0);
-		if (ib >= b->median && b->head->prev->val != vb)
-			rotate_down(&b, 0);
+		else
+		{
+			if (ia < a->median && a->head->prev->val != va)
+				rotate_up(&a, 1);
+			else if (ia >= a->median && a->head->prev->val != va)
+				rotate_down(&a, 1);
+			if (ib < b->median && b->head->prev->val != vb)
+				rotate_up(&b, 0);
+			else if (ib >= b->median && b->head->prev->val != vb)
+				rotate_down(&b, 0);
+		}
+		print_stacks(a, b);
+		ft_printf("A->head->prev = %d, VA = %d\n", a->head->prev->val, va);
+		ft_printf("B->head->prev = %d, VB = %d\n", b->head->prev->val, vb);
+		ft_printf("A->head->prev == VA = %d\n", a->head->prev->val == va);
+		ft_printf("B->head->prev == VB = %d\n", b->head->prev->val == vb);
+		printf("INFINTE LOOPED\n");
 	}
 }
 
@@ -275,6 +284,7 @@ void	push_swap(t_stack **a, t_stack **b)
 	if ((*a)->size <= 3)
 	{
 		sort_three(*a);
+		print_stacks(*a, *b);
 		return ;
 	}
 	push_a(a, b);
@@ -284,6 +294,7 @@ void	push_swap(t_stack **a, t_stack **b)
 	{
 		cheapest = find_cheapest_node(*a, *b);
 		ideal = find_ideal_position(cheapest, *b);
+		print_stacks(*a, *b);
 		put_to_top(cheapest, ideal, *a, *b);
 		push_a(a, b);
 	}
@@ -303,6 +314,7 @@ void	push_swap(t_stack **a, t_stack **b)
 			put_to_top(ideal, cheapest, *a, *b);
 			push_b(a, b);
 		}
+		print_stacks(*a, *b);
 	}
 	t_elem	*min;
 	int	is_half;
@@ -317,5 +329,7 @@ void	push_swap(t_stack **a, t_stack **b)
 			rotate_up(a, 1);
 		else
 			rotate_down(a, 1);
+		print_stacks(*a, *b);
 	}
+	print_stacks(*a, *b);
 }
