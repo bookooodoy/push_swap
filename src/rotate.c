@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:50:55 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 14:52:10 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:21:25 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	rotate_up(t_stack **stack, int s)
 		return (ft_printf("ra\n") != -1);
 	else if (!s)
 		return (ft_printf("rb\n") != -1);
+	return (0);
 }
 
 int	rotate_down(t_stack **stack, int s)
@@ -50,6 +51,7 @@ int	rotate_down(t_stack **stack, int s)
 		return (ft_printf("rra\n") != -1);
 	else if (!s)
 		return (ft_printf("rrb\n") != -1);
+	return (0);
 }
 
 int	rr(t_stack **stack_a, t_stack **stack_b)

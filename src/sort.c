@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:33:01 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:54:29 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:13:32 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	sort_second_b(t_stack **a, t_stack **b)
 	}
 }
 
-void	sort_last_a(t_stack **a, t_stack **b)
+void	sort_last_a(t_stack **a)
 {
 	t_elem	*min;
 	int		is_half;

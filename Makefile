@@ -1,6 +1,5 @@
 SRCS=src/main.c\
      src/utils.c\
-     src/operations.c\
      src/sort.c\
      src/parse.c\
      src/push.c\

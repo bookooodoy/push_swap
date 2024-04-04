@@ -28,7 +28,8 @@ void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b);
 void	sort_three(t_stack *s);
 void	sort_first_a(t_stack **a, t_stack **b);
 void	sort_second_b(t_stack **a, t_stack **b);
-void	sort_last_a(t_stack **a, t_stack **b);
+void	sort_last_a(t_stack **a);
+void	solve(t_stack **a, t_stack **b);
 
 // count
 int	get_operation_count(t_stack *a, t_stack *b, int ia, int ib);

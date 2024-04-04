@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:52:35 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 14:54:29 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:19:18 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	push_a(t_stack **stack_a, t_stack **stack_b)
 
 	pop = pop_node(stack_b);
 	if (!pop)
-		return ;
+		return (0);
 	prev = (*stack_b)->head->prev->prev;
 	(*stack_b)->head->prev = prev;
 	prev->next = (*stack_b)->head;
@@ -38,7 +38,7 @@ int	push_b(t_stack **stack_a, t_stack **stack_b)
 
 	pop = pop_node(stack_a);
 	if (!pop)
-		return ;
+		return (0);
 	prev = (*stack_a)->head->prev->prev;
 	(*stack_a)->head->prev = prev;
 	prev->next = (*stack_a)->head;

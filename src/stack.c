@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:26:42 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:53:25 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:21:46 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,3 +77,11 @@ int	stack_sorted(t_stack *s)
 	return (1);
 }
 
+void	solve(t_stack **a, t_stack **b)
+{
+	if (stack_sorted(*a))
+		return ;
+	sort_first_a(a, b);
+	sort_second_b(a, b);
+	sort_last_a(a);
+}

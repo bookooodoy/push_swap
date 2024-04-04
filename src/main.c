@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:24:19 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:29:58 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 17:43:42 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	main(int argc, char **argv)
 			return (ft_putstr_fd("Error\n", 2), 0);
 		stack_a = init_stack();
 		stack_b = init_stack();
+		if (!stack_a || !stack_b)
+		{
+			free_stack(&stack_a);
+			return (free_stack(&stack_b), 0);
+		}
 		if (argc == 2)
 		{
 			if (!convert_split(argc, argv, &stack_a, &stack_b))
@@ -31,8 +36,7 @@ int	main(int argc, char **argv)
 		}
 		else if (!check_duplicates(&stack_a, argc, argv))
 			return (ft_putstr_fd("Error\n", 2), 0);
-		push_swap(&stack_a, &stack_b);
-
+		solve(&stack_a, &stack_b);
 		free_stack(&stack_b);
 		free_stack(&stack_a);
 	}

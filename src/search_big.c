@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:44:25 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:51:21 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:22:52 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_elem	*get_biggest_node(t_stack *s)
 void	set_closest_big(t_elem **closest, t_elem *cur,
 	t_elem *node, int *diff_min)
 {
+	int	diff;
+
 	diff = cur->val - node->val;
 	if (diff > 0)
 	{
@@ -53,7 +55,6 @@ t_elem	*get_closest_node_big(t_elem *node, t_stack *s)
 {
 	t_elem	*closest;
 	t_elem	*cur;
-	int		diff;
 	int		diff_min;
 
 	cur = s->head->prev;

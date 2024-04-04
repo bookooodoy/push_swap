@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:24:26 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 14:28:55 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:20:03 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 	{
 		k = i - 1;
 		val = ft_atoi(argv[i]);
-		if (!check_input(argv[i]) || !val && argv[i][0] != '0')
+		if (!check_input(argv[i]) || (!val && argv[i][0] != '0'))
 			return (0);
 		if (!insert_node(stack_a, val))
 			return (0);
@@ -109,7 +109,6 @@ int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
 {
 	char	**split;
-	int	val;
 	int	i;
 	
 	split = NULL;

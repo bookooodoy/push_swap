@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:45:33 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:47:21 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:23:22 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_elem	*get_smallest_node(t_stack *s)
 
 void	set_closest(t_elem **closest, t_elem *cur, t_elem *node, int *diff_min)
 {
+	int	diff;
+
 	diff = node->val - cur->val;
 	if (diff > 0)
 	{
@@ -51,7 +53,6 @@ t_elem	*get_closest_node(t_elem *node, t_stack *s)
 {
 	t_elem	*closest;
 	t_elem	*cur;
-	int		diff;
 	int		diff_min;
 
 	cur = s->head->prev;
