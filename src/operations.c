@@ -94,24 +94,6 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 	t_elem	*pop;
 	t_elem	*prev;
 
-	pop = pop_node(stack_a);
-	if (!pop)
-		return ;
-	prev = (*stack_a)->head->prev->prev;
-	(*stack_a)->head->prev = prev;
-	prev->next = (*stack_a)->head;
-	insert_node(stack_b, pop->val);
-	free(pop);
-	(*stack_a)->size -= 1;
-	update_median(stack_a);
-	ft_printf("pa\n");
-}
-
-void	push_b(t_stack **stack_a, t_stack **stack_b)
-{
-	t_elem	*pop;
-	t_elem	*prev;
-
 	pop = pop_node(stack_b);
 	if (!pop)
 		return ;
@@ -121,6 +103,24 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 	insert_node(stack_a, pop->val);
 	free(pop);
 	(*stack_b)->size -= 1;
+	update_median(stack_b);
+	ft_printf("pa\n");
+}
+
+void	push_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_elem	*pop;
+	t_elem	*prev;
+
+	pop = pop_node(stack_a);
+	if (!pop)
+		return ;
+	prev = (*stack_a)->head->prev->prev;
+	(*stack_a)->head->prev = prev;
+	prev->next = (*stack_a)->head;
+	insert_node(stack_b, pop->val);
+	free(pop);
+	(*stack_a)->size -= 1;
 	update_median(stack_b);
 	ft_printf("pb\n");
 }

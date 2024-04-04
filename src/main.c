@@ -102,32 +102,6 @@ int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
 	return (free_stacks(a, b, &split, 1));
 }
 
-void	update_buff(char **buf, char *new_line)
-{
-        char    *nl;
-
-        nl = ft_strjoin(*buf, new_line);
-        free(*buf);
-        *buf = nl;
-}
-
-char    *read_instructions(void)
-{
-        char    *l;
-        char    *buf;
-
-        l = get_next_line(0);
-        while (l)
-        {
-                update_buff(&buf, l);
-                free(l);
-                l = get_next_line(0);
-        }
-        free(l);
-        ft_printf("%s", buf);
-        return (buf);
-}
-
 int	main(int argc, char **argv)
 {
 	if (argc >= 2)

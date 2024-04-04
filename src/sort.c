@@ -254,12 +254,6 @@ void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b)
 			else if (ib >= b->median && b->head->prev->val != vb)
 				rotate_down(&b, 0);
 		}
-		print_stacks(a, b);
-		ft_printf("A->head->prev = %d, VA = %d\n", a->head->prev->val, va);
-		ft_printf("B->head->prev = %d, VB = %d\n", b->head->prev->val, vb);
-		ft_printf("A->head->prev == VA = %d\n", a->head->prev->val == va);
-		ft_printf("B->head->prev == VB = %d\n", b->head->prev->val == vb);
-		printf("INFINTE LOOPED\n");
 	}
 }
 
@@ -284,19 +278,17 @@ void	push_swap(t_stack **a, t_stack **b)
 	if ((*a)->size <= 3)
 	{
 		sort_three(*a);
-		print_stacks(*a, *b);
 		return ;
 	}
-	push_a(a, b);
-	push_a(a, b);
+	push_b(a, b);
+	push_b(a, b);
 
 	while ((*a)->size > 3)
 	{
 		cheapest = find_cheapest_node(*a, *b);
 		ideal = find_ideal_position(cheapest, *b);
-		print_stacks(*a, *b);
 		put_to_top(cheapest, ideal, *a, *b);
-		push_a(a, b);
+		push_b(a, b);
 	}
 	// sort a
 	sort_three(*a);
@@ -306,15 +298,16 @@ void	push_swap(t_stack **a, t_stack **b)
 		ideal = get_closest_node_big(cheapest, *a);
 		if (get_biggest_node(*a)->val < cheapest->val)
 		{
-			push_b(a, b);
+			if (get_smallest_node(*a)->val == (*a)->tail->next->val)
+				rotate_down(a, 1);
+			push_a(a, b);
 			rotate_up(a, 1);
 		}
 		else
 		{
 			put_to_top(ideal, cheapest, *a, *b);
-			push_b(a, b);
+			push_a(a, b);
 		}
-		print_stacks(*a, *b);
 	}
 	t_elem	*min;
 	int	is_half;
@@ -329,7 +322,5 @@ void	push_swap(t_stack **a, t_stack **b)
 			rotate_up(a, 1);
 		else
 			rotate_down(a, 1);
-		print_stacks(*a, *b);
 	}
-	print_stacks(*a, *b);
 }
