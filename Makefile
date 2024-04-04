@@ -1,7 +1,16 @@
 SRCS=src/main.c\
      src/utils.c\
      src/operations.c\
-     src/sort.c
+     src/sort.c\
+     src/parse.c\
+     src/push.c\
+     src/rotate.c\
+     src/stack.c\
+     src/swap.c\
+     src/count.c\
+     src/median.c\
+     src/search_small.c\
+     src/search_big.c
 
 INC=inc/headers/push_swap.h\
     inc/my-libft/inc/libft.h
