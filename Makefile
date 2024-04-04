@@ -18,10 +18,10 @@ NAME=push_swap
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(INCL) Makefile $(SRCS)
+$(NAME): $(LIBFT) $(INC) Makefile $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT)
 
-$(LIBFT): $(INCL) Makefile
+$(LIBFT): $(INC) Makefile
 	$(MAKE) -C $(INCPATH)
 
 clean:

@@ -23,25 +23,26 @@ typedef struct s_stack
 	int	median;
 }				t_stack;
 
-//main
-void	print_args(int argc, char **argv);
-int	check_duplicates(t_stack **stack_a, int argc, char **argv);
+int     check_input(char *s);
+int     free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap);
+int     check_dup(char **arg);
+int     check_duplicates(t_stack **stack_a, int argc, char **argv);
+int     convert_split(int argc, char **argv, t_stack **a, t_stack **b);
 
 // operations
-t_stack	*init_stack(void);
-void	insert_node(t_stack **stack, int value);
-void	free_stack(t_stack **stack);
-t_elem	*pop_node(t_stack **stack);
-void	swap_nodes(t_stack **stack);
-void	swap_a(t_stack **stack_a);
-void	swap_b(t_stack **stack_b);
-void	swap_ss(t_stack **stack_a, t_stack **stack_b);
-void	push_a(t_stack **stack_a, t_stack **stack_b);
-void	push_b(t_stack **stack_a, t_stack **stack_b);
-void	rotate_up(t_stack **stack, int s);
-void	rotate_down(t_stack **stack, int s);
-void	rr(t_stack **stack_a, t_stack **stack_b);
-void	rrr(t_stack **stack_a, t_stack **stack_b);
+int     insert_node(t_stack **stack, int value);
+t_stack *init_stack(void);
+t_elem  *pop_node(t_stack **stack);
+void    swap_nodes(t_stack **stack);
+int     swap_a(t_stack **stack_a);
+int     swap_b(t_stack **stack_b);
+int     swap_ss(t_stack **stack_a, t_stack **stack_b);
+int     push_a(t_stack **stack_a, t_stack **stack_b);
+int     push_b(t_stack **stack_a, t_stack **stack_b);
+int     rotate_up(t_stack **stack, int s);
+int     rotate_down(t_stack **stack, int s);
+int     rr(t_stack **stack_a, t_stack **stack_b);
+int     rrr(t_stack **stack_a, t_stack **stack_b);
 
 // solving
 t_elem	*get_biggest_node(t_stack *s);

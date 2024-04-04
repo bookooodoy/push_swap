@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 13:24:19 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 13:29:05 by nraymond         ###   ########.fr       */
+/*   Created: 2024/04/04 13:24:26 by nraymond          #+#    #+#             */
+/*   Updated: 2024/04/04 14:28:55 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	check_input(char *s)
 	}
 	return (1);
 }
-
 
 int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap)
 {
@@ -78,6 +77,35 @@ int	check_dup(char **arg)
 }
 
 
+
+int	check_duplicates(t_stack **stack_a, int argc, char **argv)
+{
+	int	i;
+	int	k;
+	int	val;
+
+	i = argc - 1;
+	while (i)
+	{
+		k = i - 1;
+		val = ft_atoi(argv[i]);
+		if (!check_input(argv[i]) || !val && argv[i][0] != '0')
+			return (0);
+		if (!insert_node(stack_a, val))
+			return (0);
+		while (k)
+		{
+			if (!ft_atoi(argv[k]) && argv[k][0] != '0')
+				return (0);
+			if (val == ft_atoi(argv[k]))
+				return (0);
+			k--;
+		}
+		i--;
+	}
+	return (1);
+}
+
 int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
 {
 	char	**split;
@@ -103,30 +131,4 @@ int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
 		}
 	}
 	return (free_stacks(a, b, &split, 1));
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc >= 2)
-	{
-		t_stack	*stack_a;
-		t_stack	*stack_b;
-
-		if ((argc > 2 && (!argv[1][0] || !argv[2][0])) || (argc == 2 && !argv[1][0]))
-			return (ft_putstr_fd("Error\n", 2), 0);
-		stack_a = init_stack();
-		stack_b = init_stack();
-		if (argc == 2)
-		{
-			if (!convert_split(argc, argv, &stack_a, &stack_b))
-				return (ft_putstr_fd("Error\n", 2), 0);
-		}
-		else if (!check_duplicates(&stack_a, argc, argv))
-			return (ft_putstr_fd("Error\n", 2), 0);
-		push_swap(&stack_a, &stack_b);
-
-		free_stack(&stack_b);
-		free_stack(&stack_a);
-	}
-	return (0);
 }
