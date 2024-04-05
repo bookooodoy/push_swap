@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:44:25 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:22:52 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:29:50 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_elem	*get_biggest_node(t_stack *s)
 	if (!cur || cur == s->tail)
 		return (NULL);
 	max = s->head->prev;
-	while (cur != s->tail)
+	while (cur && cur != s->tail)
 	{
 		if (cur->val > max->val)
 			max = cur;
@@ -62,7 +62,7 @@ t_elem	*get_closest_node_big(t_elem *node, t_stack *s)
 		return (NULL);
 	closest = cur;
 	diff_min = 0;
-	while (cur != s->tail)
+	while (cur && cur != s->tail)
 	{
 		set_closest_big(&closest, cur, node, &diff_min);
 		cur = cur->prev;

@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:26:42 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:21:46 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:00:39 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ t_stack	*init_stack(void)
 	if (!stack)
 		return (NULL);
 	head = malloc(sizeof(t_elem));
+	if (!head)
+		return (free(stack), NULL);
 	tail = malloc(sizeof(t_elem));
-	if (!tail || !head)
+	if (!tail)
 	{
 		free(head);
-		free(stack);
-		return (free(tail), NULL);
+		return (free(stack), NULL);
 	}
 	head->prev = tail;
 	head->next = NULL;
@@ -65,23 +66,24 @@ int	stack_sorted(t_stack *s)
 
 	cur = s->head->prev;
 	if (!cur || cur == s->tail)
-		return (0);
+		return (ft_printf("Stack is empty\n"), 0);
 	else if (cur->prev == s->tail)
-		return (1);
-	while (cur->prev != s->tail)
+		return (ft_printf("Stack has only 1 element\n"), 1);
+	while (cur != s->tail->next)
 	{
 		if (cur->val > cur->prev->val)
-			return (0);
+			return (ft_printf("Stack is not sorted\n"), 0);
+		ft_printf("%d->", cur->val);
 		cur = cur->prev;
 	}
-	return (1);
+	return (ft_printf("Stack is sorted\n"), 1);
 }
 
 void	solve(t_stack **a, t_stack **b)
 {
-	if (stack_sorted(*a))
-		return ;
-	sort_first_a(a, b);
-	sort_second_b(a, b);
-	sort_last_a(a);
+	if (sort_first_a(a, b))
+		if (sort_second_b(a, b))
+			sort_last_a(a);
+	free_stack(a);
+	free_stack(b);
 }

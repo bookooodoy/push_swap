@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:45:33 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:23:22 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:30:45 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_elem	*get_smallest_node(t_stack *s)
 	if (!cur || cur == s->tail)
 		return (NULL);
 	min = s->head->prev;
-	while (cur != s->tail)
+	while (cur && cur != s->tail)
 	{
 		if (cur->val < min->val)
 			min = cur;
@@ -60,7 +60,7 @@ t_elem	*get_closest_node(t_elem *node, t_stack *s)
 		return (NULL);
 	closest = cur;
 	diff_min = 0;
-	while (cur != s->tail)
+	while (cur && cur != s->tail)
 	{
 		set_closest(&closest, cur, node, &diff_min);
 		cur = cur->prev;

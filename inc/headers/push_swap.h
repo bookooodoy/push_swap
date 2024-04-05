@@ -24,10 +24,10 @@ typedef struct s_stack
 }				t_stack;
 
 // sort
-void	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b);
-void	sort_three(t_stack *s);
-void	sort_first_a(t_stack **a, t_stack **b);
-void	sort_second_b(t_stack **a, t_stack **b);
+int	put_to_top(t_elem *target_a, t_elem *target_b, t_stack *a, t_stack *b);
+int	sort_three(t_stack *s);
+int	sort_first_a(t_stack **a, t_stack **b);
+int	sort_second_b(t_stack **a, t_stack **b);
 void	sort_last_a(t_stack **a);
 void	solve(t_stack **a, t_stack **b);
 
@@ -56,7 +56,7 @@ int	check_input(char *s);
 int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap);
 int	check_dup(char **arg);
 int	check_duplicates(t_stack **stack_a, int argc, char **argv);
-int	convert_split(int argc, char **argv, t_stack **a, t_stack **b);
+int	convert_split(char **argv, t_stack **a, t_stack **b);
 
 // push
 int	push_a(t_stack **stack_a, t_stack **stack_b);
@@ -75,7 +75,7 @@ t_stack	*init_stack(void);
 int	stack_sorted(t_stack *s);
 
 //swap
-void	swap_nodes(t_stack **stack);
+int	swap_nodes(t_stack **stack);
 int	swap_a(t_stack **stack_a);
 int	swap_b(t_stack **stack_b);
 int	swap_ss(t_stack **stack_a, t_stack **stack_b);

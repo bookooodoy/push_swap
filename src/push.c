@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:52:35 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:19:18 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:22:24 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	push_a(t_stack **stack_a, t_stack **stack_b)
 	prev = (*stack_b)->head->prev->prev;
 	(*stack_b)->head->prev = prev;
 	prev->next = (*stack_b)->head;
-	insert_node(stack_a, pop->val);
-	free(pop);
+	if (!insert_node(stack_a, pop->val))
+		return (free(pop), 0);
 	(*stack_b)->size -= 1;
 	update_median(stack_b);
-	return (ft_printf("pa\n") != -1);
+	return (free(pop), ft_printf("pa\n") == 3);
 }
 
 int	push_b(t_stack **stack_a, t_stack **stack_b)
@@ -42,11 +42,11 @@ int	push_b(t_stack **stack_a, t_stack **stack_b)
 	prev = (*stack_a)->head->prev->prev;
 	(*stack_a)->head->prev = prev;
 	prev->next = (*stack_a)->head;
-	insert_node(stack_b, pop->val);
-	free(pop);
+	if (!insert_node(stack_b, pop->val))
+		return (free(pop), 0);
 	(*stack_a)->size -= 1;
 	update_median(stack_b);
-	return (ft_printf("pb\n") != -1);
+	return (free(pop), ft_printf("pb\n") == 3);
 }
 
 t_elem	*pop_node(t_stack **stack)

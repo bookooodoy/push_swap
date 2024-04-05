@@ -6,48 +6,11 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 17:22:13 by nraymond          #+#    #+#             */
-/*   Updated: 2024/01/29 22:48:51 by bookoodoy        ###   ########.fr       */
+/*   Updated: 2024/04/05 09:55:24 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
-
-char	*ft_strcpy(char *dst, const char *src)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	dst[i] = 0;
-	return (dst);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*duplicate;
-
-	duplicate = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!(duplicate || !s))
-		return (NULL);
-	duplicate = ft_strcpy(duplicate, s);
-	return (duplicate);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 void	add_last_char(char *dst, const char *src, char *buffer)
 {

@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:50:55 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:21:25 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:26:04 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	rotate_up(t_stack **stack, int s)
 		cur = cur->prev;
 	}
 	if (s == 1)
-		return (ft_printf("ra\n") != -1);
+		return (ft_printf("ra\n") == 3);
 	else if (!s)
-		return (ft_printf("rb\n") != -1);
-	return (0);
+		return (ft_printf("rb\n") == 3);
+	return (1);
 }
 
 int	rotate_down(t_stack **stack, int s)
@@ -48,22 +48,26 @@ int	rotate_down(t_stack **stack, int s)
 		cur = cur->next;
 	}
 	if (s == 1)
-		return (ft_printf("rra\n") != -1);
+		return (ft_printf("rra\n") == 4);
 	else if (!s)
-		return (ft_printf("rrb\n") != -1);
-	return (0);
+		return (ft_printf("rrb\n") == 4);
+	return (1);
 }
 
 int	rr(t_stack **stack_a, t_stack **stack_b)
 {
-	rotate_up(stack_a, -1);
-	rotate_up(stack_b, -1);
-	return (ft_printf("rr\n") != -1);
+	if (!rotate_up(stack_a, -1))
+		return (0);
+	if (!rotate_up(stack_b, -1))
+		return (0);
+	return (ft_printf("rr\n") == 3);
 }
 
 int	rrr(t_stack **stack_a, t_stack **stack_b)
 {
-	rotate_down(stack_a, -1);
-	rotate_down(stack_b, -1);
-	return (ft_printf("rrr\n") != -1);
+	if (!rotate_down(stack_a, -1))
+		return (0);
+	if (!rotate_down(stack_b, -1))
+		return (0);
+	return (ft_printf("rrr\n") == 4);
 }

@@ -6,34 +6,17 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:24:26 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 18:20:03 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:25:02 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 #include "../inc/my-libft/inc/libft.h"
 
-int	check_input(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (i != 0 && !ft_isdigit(s[i]))
-			return (0);
-		else if (i == 0 && !ft_isdigit(s[i]) && s[i] != '+' && s[i] != '-')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap)
 {
 	int	i;
 
-	i = 0;
 	if (!no_cap)
 	{
 		free_stack(a);
@@ -41,6 +24,7 @@ int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap)
 	}
 	if (!*split)
 		return (0);
+	i = 0;
 	while ((*split)[i])
 	{
 		free((*split)[i]);
@@ -52,18 +36,36 @@ int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap)
 	return (no_cap);
 }
 
+int	check_input(char *s)
+{
+	int	i;
+
+	if (!s || (ft_atoi(s) == 0 && ft_strlen(s) > 1) || (ft_atoi(s) == 0 && s[0] != '0'))
+		return (ft_printf("Err with %s\n", s), 0);
+	i = 0;
+	while (s[i])
+	{
+		if ((i == 0 && !ft_isdigit(s[i])) && s[i] != '-')
+			return (ft_printf("Err with invalid value inside input\n"), 0);
+		else if (i > 0 && !ft_isdigit(s[i]))
+			return (ft_printf("Err with invalid value that is not a sign\n"), 0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_dup(char **arg)
 {
 	int	i;
 	int	k;
 
-	i = 0;
+	i = 1;
 	if (!arg)
 		return (0);
 	while (arg[i])
 	{
 		if (!check_input(arg[i]))
-			return (0);
+			return (ft_printf("Input Error"), 0);
 		k = i + 1;
 		while (arg[k])
 		{
@@ -76,58 +78,37 @@ int	check_dup(char **arg)
 	return (i);
 }
 
-
-
 int	check_duplicates(t_stack **stack_a, int argc, char **argv)
 {
 	int	i;
-	int	k;
 	int	val;
 
 	i = argc - 1;
+	if (!check_dup(argv))
+		return (ft_printf("Duplicates or invalid input\n"), 0);
 	while (i)
 	{
-		k = i - 1;
 		val = ft_atoi(argv[i]);
-		if (!check_input(argv[i]) || (!val && argv[i][0] != '0'))
-			return (0);
 		if (!insert_node(stack_a, val))
 			return (0);
-		while (k)
-		{
-			if (!ft_atoi(argv[k]) && argv[k][0] != '0')
-				return (0);
-			if (val == ft_atoi(argv[k]))
-				return (0);
-			k--;
-		}
 		i--;
 	}
 	return (1);
 }
 
-int	convert_split(int argc, char **argv, t_stack **a, t_stack **b)
+int	convert_split(char **argv, t_stack **a, t_stack **b)
 {
 	char	**split;
-	int	i;
-	
-	split = NULL;
-	if (argc == 2)
-	{
-		if (argv[1][0])
-			if (!argv[1][1])
-				return (free_stacks(a, b, &split, 0));
-		split = ft_split(argv[1], ' ');
-		i = check_dup(split);
-		if (!i)
-			return (free_stacks(a, b, &split, 0));
-		while (i)
-		{
-			if (!check_input(split[--i]) || (ft_atoi(split[i]) && split[i][0] != '0'))
-				return (free_stacks(a, b, &split, 0));
-			if (!insert_node(a, ft_atoi(split[i])))
-				return (free_stacks(a, b, &split, 0));
-		}
-	}
+	int	c;
+
+	split = ft_split(argv[1], ' ');
+	if (!split)
+		return (free_stacks(a, b, &split, 0));
+	ft_printf("%s\n\n", split);
+	c = 0;
+	while (split[c])
+		c++;
+	if (!check_duplicates(a, c, split))
+		return (free_stacks(a, b, &split, 0));
 	return (free_stacks(a, b, &split, 1));
 }

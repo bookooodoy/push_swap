@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:52:21 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/04 16:52:23 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:50:14 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	get_node_index(t_elem *target, t_stack *s)
 	if (!target || !s)
 		return (-1);
 	cur = s->head->prev;
-	while (cur != s->tail)
+	while (cur && cur != s->tail)
 	{
 		if (cur == target)
 			return (i);
