@@ -54,9 +54,9 @@ t_elem	*get_closest_node(t_elem *node, t_stack *s);
 // parse
 int	check_input(char *s);
 int	free_stacks(t_stack **a, t_stack **b, char ***split, int no_cap);
-int	check_dup(char **arg);
-int	check_duplicates(t_stack **stack_a, int argc, char **argv);
+int	check_duplicates(t_stack **stack_a, int argc, char **argv, int start);
 int	convert_split(char **argv, t_stack **a, t_stack **b);
+int	check_dup(char **arg, int start);
 
 // push
 int	push_a(t_stack **stack_a, t_stack **stack_b);
@@ -84,5 +84,7 @@ int	swap_ss(t_stack **stack_a, t_stack **stack_b);
 void	free_stack(t_stack **stack);
 void	update_median(t_stack **s);
 int	get_node_index(t_elem *target, t_stack *s);
+
+void	print_stacks(t_stack *a, t_stack *b);
 
 #endif

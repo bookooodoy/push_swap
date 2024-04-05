@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:24:26 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/05 14:25:02 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:29:35 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,32 @@ int	check_input(char *s)
 {
 	int	i;
 
-	if (!s || (ft_atoi(s) == 0 && ft_strlen(s) > 1) || (ft_atoi(s) == 0 && s[0] != '0'))
-		return (ft_printf("Err with %s\n", s), 0);
+	if (!s || ((ft_atoi(s) == 0 && s[0] != '0') || (ft_atoi(s) == 0 && ft_strlen(s) > 1)))
+		return (0);
 	i = 0;
 	while (s[i])
 	{
 		if ((i == 0 && !ft_isdigit(s[i])) && s[i] != '-')
-			return (ft_printf("Err with invalid value inside input\n"), 0);
+			return (0);
 		else if (i > 0 && !ft_isdigit(s[i]))
-			return (ft_printf("Err with invalid value that is not a sign\n"), 0);
+			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	check_dup(char **arg)
+int	check_dup(char **arg, int start)
 {
 	int	i;
 	int	k;
 
-	i = 1;
+	i = start;
 	if (!arg)
 		return (0);
 	while (arg[i])
 	{
 		if (!check_input(arg[i]))
-			return (ft_printf("Input Error"), 0);
+			return (0);
 		k = i + 1;
 		while (arg[k])
 		{
@@ -78,20 +78,19 @@ int	check_dup(char **arg)
 	return (i);
 }
 
-int	check_duplicates(t_stack **stack_a, int argc, char **argv)
+int	check_duplicates(t_stack **stack_a, int argc, char **argv, int start)
 {
-	int	i;
 	int	val;
 
-	i = argc - 1;
-	if (!check_dup(argv))
-		return (ft_printf("Duplicates or invalid input\n"), 0);
-	while (i)
+	if (!check_dup(argv, start))
+		return (0);
+	argc-= 1;
+	while (argc != -1)
 	{
-		val = ft_atoi(argv[i]);
+		val = ft_atoi(argv[argc]);
 		if (!insert_node(stack_a, val))
 			return (0);
-		i--;
+		argc--;
 	}
 	return (1);
 }
@@ -104,11 +103,10 @@ int	convert_split(char **argv, t_stack **a, t_stack **b)
 	split = ft_split(argv[1], ' ');
 	if (!split)
 		return (free_stacks(a, b, &split, 0));
-	ft_printf("%s\n\n", split);
 	c = 0;
 	while (split[c])
 		c++;
-	if (!check_duplicates(a, c, split))
+	if (!check_duplicates(a, c, split, 0))
 		return (free_stacks(a, b, &split, 0));
 	return (free_stacks(a, b, &split, 1));
 }

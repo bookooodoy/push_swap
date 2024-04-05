@@ -6,7 +6,7 @@
 /*   By: nraymond <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:33:01 by nraymond          #+#    #+#             */
-/*   Updated: 2024/04/05 13:55:44 by nraymond         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:24:35 by nraymond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	sort_three(t_stack *s)
 		if (!swap_a(&s))
 			return (0);
 	}
-	return (s->size > 2);
+	return (1);
 }
 
 int	sort_first_a(t_stack **a, t_stack **b)
@@ -100,17 +100,19 @@ int	sort_first_a(t_stack **a, t_stack **b)
 	if (stack_sorted(*a))
 		return (0);
 	if ((*a)->size <= 3)
-		return (sort_three(*a));
+		return (sort_three(*a), 0);
 	if (!push_b(a, b))
 		return (0);
 	if (!push_b(a, b))
 		return (0);
+	print_stacks(*a, *b);
 	while ((*a)->size > 3)
 	{
 		cheapest = find_cheapest_node(*a, *b);
 		ideal = find_ideal_position(cheapest, *b);
 		put_to_top(cheapest, ideal, *a, *b);
 		push_b(a, b);
+		print_stacks(*a, *b);
 	}
 	return (sort_three(*a));
 }
@@ -124,6 +126,7 @@ int	sort_second_b(t_stack **a, t_stack **b)
 	{
 		cheapest = (*b)->head->prev;
 		ideal = get_closest_node_big(cheapest, *a);
+		print_stacks(*a, *b);
 		if (get_biggest_node(*a)->val < cheapest->val)
 		{
 			put_to_top(get_smallest_node(*a), cheapest, *a, *b);
